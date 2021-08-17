@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomRaisedButton  extends StatelessWidget {
-   CustomRaisedButton({
+class CustomRaisedButton extends StatelessWidget {
+  CustomRaisedButton({
     required this.color,
     required this.child,
-    this.borderRadius:8.00,
+    this.borderRadius: 8.00,
     required this.onPressed,
   });
   final Widget child;
@@ -14,8 +14,9 @@ class CustomRaisedButton  extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return RaisedButton(
-      child:child,
+      child: child,
       color: color,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(

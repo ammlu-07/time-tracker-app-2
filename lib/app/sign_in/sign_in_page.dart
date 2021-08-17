@@ -1,11 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/app/landing_page.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
-import 'package:time_tracker_flutter_course/common_widget/custom_raised_button.dart';
 import 'package:time_tracker_flutter_course/common_widget/sign_in_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  SignInPage({required this.onSignIn});
+  final Function(User) onSignIn;
+
+  Future<void> _signInAnonymously() async {
+    try {
+      final authResult = await FirebaseAuth.instance.signInAnonymously();
+      onSignIn(authResult.user!);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,45 +40,42 @@ class SignInPage extends StatelessWidget {
           Text(
             'Sign-in',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 32.00,
-                fontWeight: FontWeight.w600
-            ),
+            style: TextStyle(fontSize: 32.00, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: 30.00),
           SocialSignInButton(
             assetName: 'images/google-logo.png',
-            text : 'Sign in with Google',
+            text: 'Sign in with Google',
             textColor: Colors.black87,
             color: Colors.white,
-            onPressed: (){},
+            onPressed: () {},
           ),
           SizedBox(height: 2.00),
           SocialSignInButton(
             assetName: 'images/facebook-logo.png',
-            text : 'Sign in with Facebook',
+            text: 'Sign in with Facebook',
             textColor: Colors.white,
             color: Color(0xFF334D92),
-            onPressed: (){},
+            onPressed: () {},
           ),
           SizedBox(height: 2.00),
           SignInButton(
-            text : 'Sign in with E-mail',
+            text: 'Sign in with E-mail',
             textColor: Colors.white,
             color: Colors.teal,
-            onPressed: (){},
+            onPressed: () {},
           ),
           Text(
             'or',
-            style: TextStyle(fontSize: 16.0, color:Colors.black87),
+            style: TextStyle(fontSize: 16.0, color: Colors.black87),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 2.00),
           SignInButton(
-            text : 'Go Anonymous',
+            text: 'Go Anonymous',
             textColor: Colors.black87,
             color: Colors.lime,
-            onPressed: (){},
+            onPressed: _signInAnonymously,
           ),
         ],
       ),
