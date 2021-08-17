@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_tracker_flutter_course/app/landing_page.dart';
 import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter_course/common_widget/sign_in_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInPage extends StatelessWidget {
-  SignInPage({required this.onSignIn});
-  final Function(User) onSignIn;
+  SignInPage({@required this.onSignIn});
+  final Function(FirebaseUser) onSignIn;
 
   Future<void> _signInAnonymously() async {
     try {
       final authResult = await FirebaseAuth.instance.signInAnonymously();
-      onSignIn(authResult.user!);
+      onSignIn(authResult.user);
     } catch (e) {
       print(e.toString());
     }
